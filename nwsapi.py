@@ -37,8 +37,8 @@ class NewsApi:
         self._cors = CORS(self._web)
         self._ws = Api(self._web)
 
-        self._ws.add_resource(Articles, '/articles', '/articles/<string:aid>')
-        self._ws.add_resource(Engine, '/engine')
+        self._ws.add_resource(Articles, '/news/articles', '/news/articles/<string:aid>')
+        self._ws.add_resource(Engine, '/news/engine')
 
     def run(self):
         self._web.run(debug=CONFIG.SERVER_DEBUG, host=CONFIG.SERVER_HOST, port=CONFIG.SERVER_PORT)
