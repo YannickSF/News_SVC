@@ -7,6 +7,10 @@ from flask_restful import *
 from config import CONFIG
 from nws import NewsService
 
+_web = Flask('__name__')
+_cors = CORS(_web)
+nwsapi = Api(_web)
+
 
 class Articles(Resource):
     @staticmethod
@@ -31,19 +35,9 @@ class Engine(Resource):
         return {'status': '0111'}
 
 
-class NewsApi:
-    def __init__(self):
-        self._web = Flask('__name__')
-        self._cors = CORS(self._web)
-        self._ws = Api(self._web)
-
-        self._ws.add_resource(Articles, '/news/articles', '/news/articles/<string:aid>')
-        self._ws.add_resource(Engine, '/news/engine')
-
-    def run(self):
-        self._web.run(debug=CONFIG.SERVER_DEBUG, host=CONFIG.SERVER_HOST, port=CONFIG.SERVER_PORT)
+nwsapi.add_resource(Articles, '/news/articles', '/news/articles/<string:aid>')
+nwsapi.add_resource(Engine, '/news/engine')
 
 
-if __name__ == '__main__':
-    nsapi = NewsApi()
-    nsapi.run()
+"""if __name__ == '__main__':
+    _web.run(debug=CONFIG.SERVER_DEBUG, host=CONFIG.SERVER_HOST, port=CONFIG.SERVER_PORT)"""

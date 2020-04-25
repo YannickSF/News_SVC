@@ -19,6 +19,6 @@ RUN pip3 install -r requirements.txt
 
 COPY . /app
 
-ENTRYPOINT [ "python3" ]
+ENTRYPOINT [ "bash" ]
 
-CMD [ "nwsapi.py" ]
+CMD [ "run.sh" ]
