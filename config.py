@@ -9,7 +9,7 @@ class _Config:
     SEVER_SECRET_KEY = 'secret_key_for_test'
     SERVER_HOST = '0.0.0.0'
     SERVER_PORT = 5050
-    SERVER_DEBUG = False
+    SERVER_DEBUG = True
     """
     # LOG
     date = datetime.datetime.now()
@@ -18,7 +18,7 @@ class _Config:
     LOGGING = logging"""
 
     # NewsOrg - configuration
-    NEWS_API_KEY = ''
+    NEWS_API_KEY = '8f8d40fbcc36400b832e29f1e3ac67b0'
 
     NEWS_ORG = 'https://newsapi.org/v2/'
     EVERYTHING = 'everything'

@@ -9,7 +9,7 @@ class Engine:
         self._nwo_svc = Newsorg(CONFIG)
 
     def _treatment_base(self):
-        CONFIG.LOGGING.info('---start treatment base---')
+        # CONFIG.LOGGING.info('---start treatment base---')
         results = []
 
         def analyse(article):
@@ -34,7 +34,7 @@ class Engine:
         for a in results:
             if not is_known(a):
                 CONFIG.DB_ARTICLES.insert_obj(a)
-        CONFIG.LOGGING.info('---end treatment base---')
+        # CONFIG.LOGGING.info('---end treatment base---')
 
     def _treatment_favoris(self):
         pass
