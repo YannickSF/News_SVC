@@ -8,8 +8,14 @@ from config import CONFIG
 from nws import NewsService
 
 _web = Flask('__name__')
-_cors = CORS(_web)
+_cors = CORS(_web, resources={r"/news/*": {"origins": "*"}})
 nwsapi = Api(_web)
+
+
+class Health(Resource):
+    @staticmethod
+    def get():
+        return 'NEWS API UP'
 
 
 class Articles(Resource):
@@ -35,9 +41,10 @@ class Engine(Resource):
         return {'status': '0111'}
 
 
-nwsapi.add_resource(Articles, '/news/articles', '/news/articles/<string:aid>')
-nwsapi.add_resource(Engine, '/news/engine')
+nwsapi.add_resource(Health, '/')
+nwsapi.add_resource(Articles, '/articles', '/articles/<string:aid>')
+nwsapi.add_resource(Engine, '/engine')
 
 
-"""if __name__ == '__main__':
-    _web.run(debug=CONFIG.SERVER_DEBUG, host=CONFIG.SERVER_HOST, port=CONFIG.SERVER_PORT)"""
+if __name__ == '__main__':
+    _web.run(debug=CONFIG.SERVER_DEBUG, host=CONFIG.SERVER_HOST, port=CONFIG.SERVER_PORT)

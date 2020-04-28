@@ -8,7 +8,7 @@ class _Config:
     # SERVER CONFIG
     SEVER_SECRET_KEY = 'secret_key_for_test'
     SERVER_HOST = '0.0.0.0'
-    SERVER_PORT = 5050
+    SERVER_PORT = 5000
     SERVER_DEBUG = True
     """
     # LOG
