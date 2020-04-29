@@ -24,7 +24,7 @@ class Articles(Resource):
         if aid is not None:
             payload = {'article': NewsService.get_article_by_id(aid)}
         else:
-            p = None
+            p = 0
             if len(request.args) > 0:
                 p = int(request.args.get('p'))
             payload = {'articles': NewsService.get_articles(p)}
