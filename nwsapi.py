@@ -8,7 +8,7 @@ from config import CONFIG
 from nws import NewsService
 
 _web = Flask('__name__')
-_cors = CORS(_web, resources={r"/news/*": {"origins": "*"}})
+_cors = CORS(_web)
 nwsapi = Api(_web)
 
 
@@ -24,7 +24,10 @@ class Articles(Resource):
         if aid is not None:
             payload = {'article': NewsService.get_article_by_id(aid)}
         else:
-            payload = {'articles': NewsService.get_articles()}
+            p = None
+            if len(request.args) > 0:
+                p = int(request.args.get('p'))
+            payload = {'articles': NewsService.get_articles(p)}
         return payload
 
     @staticmethod

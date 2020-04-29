@@ -12,9 +12,9 @@ class NewsService:
     def get_articles(pagination=0):
         data = CONFIG.DB_ARTICLES.all()
         if pagination != 0:
-            return [data[i] for i in range(pagination)]
-        else:
-            return data
+            data = [data[i] for i in range(pagination)]
+        data.reverse()
+        return data
 
     @staticmethod
     def get_article_by_id(uid):
