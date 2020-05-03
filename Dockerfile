@@ -20,5 +20,7 @@ RUN pip3 install -r requirements.txt
 COPY . /app
 
 ENTRYPOINT [ "bash" ]
+EXPOSE 5000
 
 CMD [ "run.sh" ]
+
