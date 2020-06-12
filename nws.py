@@ -12,6 +12,7 @@ class NewsService:
     def get_articles(pagination=0):
         data = CONFIG.DB_ARTICLES.all()
         if pagination != 0:
+            data.reverse()
             data = [data[i] for i in range(pagination)]
         data.reverse()
         return data
