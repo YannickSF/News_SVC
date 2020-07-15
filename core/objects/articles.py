@@ -4,19 +4,55 @@ import uuid
 
 class Article:
     def __init__(self, args):
-        if 'id' not in args.keys():
-            self.id = str(uuid.uuid4())
+        self.id = str(uuid.uuid4())
+
+        if 'author' or 'by' in args.keys():
+            if 'by' in args.keys():
+                self.author = args['by']
+            else:
+                self.author = args['author']
         else:
-            self.id = args['id']
-        self.author = args['author']
-        self.title = args['title']
-        self.description = args['description']
-        self.url = args['url']
-        self.source = args['source']
-        self.urlToImage = args['urlToImage']
-        self.publishedAt = args['publishedAt']
-        self.content = args['content']
-        self.favoris = False
+            self.author = None
+
+        if 'title' in args.keys():
+            self.title = args['title']
+        else:
+            self.author = None
+
+        if 'description' in args.keys():
+            self.description = args['description']
+        else:
+            self.description = None
+
+        if 'url' in args.keys():
+            self.url = args['url']
+        else:
+            self.url = None
+
+        if 'source' in args.keys():
+            self.source = args['source']
+        else:
+            self.source = None
+
+        if 'urlToImage' in args.keys():
+            self.urlToImage = args['urlToImage']
+        else:
+            self.urlToImage = None
+
+        if 'publishedAt' in args.keys():
+            self.publishedAt = args['publishedAt']
+        else:
+            self.publishedAt = None
+
+        if 'content' in args.keys():
+            self.content = args['content']
+        else:
+            self.content = None
+
+        if 'favoris' in args.keys():
+            self.favoris = args['favoris']
+        else:
+            self.favoris = None
 
     def __repr__(self):
         return {'id': self.id,

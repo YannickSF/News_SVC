@@ -2,11 +2,13 @@
 from config import CONFIG
 from libs.database import Table, Query
 from .sites.newsorg import Newsorg
+from .sites.hackernews import HackerNews
 
 
 class Engine:
     def __init__(self):
         self._nwo_svc = Newsorg(CONFIG)
+        self._hks_svc = HackerNews(CONFIG)
 
     def _treatment_base(self):
         # CONFIG.LOGGING.info('---start treatment base---')
@@ -14,8 +16,12 @@ class Engine:
 
         def analyse(article):
             for wrd in CONFIG.SCAN_WORDS:
-                if article.title is not None and article.description is not None:
-                    if wrd in article.title.lower() or wrd in article.description.lower():
+                if article.title is not None:
+                    if wrd in article.title.lower():
+                        return article
+
+                if article.description is not None:
+                    if wrd in article.description.lower():
                         return article
                 return None
 
@@ -28,6 +34,8 @@ class Engine:
         for i in CONFIG.DATA:
             args = self._nwo_svc.create_args(query=i)
             results += self._nwo_svc.query(CONFIG.TOP_HEADLINE, args).articles
+
+        results += self._hks_svc.query()
 
         results = [r for r in results if analyse(r) is not None]
 

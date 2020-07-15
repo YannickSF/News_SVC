@@ -32,6 +32,13 @@ class _Config:
 
     SCAN_WORDS = ['ai', 'ia', 'space', 'business']
 
+    # HackerNews - configuration
+    HACKERSNEWS_API = 'https://hacker-news.firebaseio.com/v0/'
+    TOP_STORIES = 'topstories'
+    OPT_ITEMS = 'item'
+    OPT_JSON = '.json'
+    OPT_PRETTY = '?print=pretty'
+
     # DATABASE
     DB_ARTICLES = Table('articles')
 
