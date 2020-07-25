@@ -39,6 +39,9 @@ class _Config:
     OPT_JSON = '.json'
     OPT_PRETTY = '?print=pretty'
 
+    # FLUX RSS
+    SITES = ['https://siecledigital.fr/feed']
+
     # DATABASE
     DB_ARTICLES = Table('articles')
 

@@ -12,7 +12,8 @@ class Engine:
 
     def _treatment_base(self):
         # CONFIG.LOGGING.info('---start treatment base---')
-        results = []
+        results_nws = []
+        results_hks = []
 
         def analyse(article):
             for wrd in CONFIG.SCAN_WORDS:
@@ -33,11 +34,11 @@ class Engine:
 
         for i in CONFIG.DATA:
             args = self._nwo_svc.create_args(query=i)
-            results += self._nwo_svc.query(CONFIG.TOP_HEADLINE, args).articles
+            results_nws += self._nwo_svc.query(CONFIG.TOP_HEADLINE, args).articles
 
-        results += self._hks_svc.query()
+        results_hks += self._hks_svc.query()
 
-        results = [r for r in results if analyse(r) is not None]
+        results = [r for r in results_nws + results_hks if analyse(r) is not None]
 
         for a in results:
             if not is_known(a):

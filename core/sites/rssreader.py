@@ -1,0 +1,4 @@
+
+
+class RssReader:
+    pass

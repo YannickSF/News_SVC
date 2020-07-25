@@ -6,6 +6,8 @@ from flask_restful import *
 
 from config import CONFIG
 from nws import NewsService
+from libs.jsonfeed import FeedCreator
+
 
 _web = Flask('__name__')
 _cors = CORS(_web)
@@ -14,20 +16,25 @@ nwsapi = Api(_web)
 
 class Health(Resource):
     @staticmethod
-    def get():
-        return 'NEWS API UP'
+    def _osciloscope():
+        url = 'http://localhost:5000/articles'
+        care = {'1': True, '2': True}
+        return care
+
+    def get(self):
+        return self._osciloscope()
 
 
 class Articles(Resource):
     @staticmethod
     def get(aid=None):
         if aid is not None:
-            payload = {'article': NewsService.get_article_by_id(aid)}
+            payload = {'code': 200, 'article': NewsService.get_article_by_id(aid)}
         else:
             p = 0
             if len(request.args) > 0:
                 p = int(request.args.get('p'))
-            payload = {'articles': NewsService.get_articles(p)}
+            payload = {'code': 200, 'articles': NewsService.get_articles(p)}
         return payload
 
     @staticmethod
@@ -41,12 +48,22 @@ class Engine(Resource):
 
     def get(self):
         self.ns.start_engine()
-        return {'status': '0111'}
+        return {'code': 200, 'status': '0111'}
 
 
-nwsapi.add_resource(Health, '/')
-nwsapi.add_resource(Articles, '/articles', '/articles/<string:aid>')
+class JSONFeed(Resource):
+    def __init__(self):
+        self.fder = FeedCreator()
+
+    def get(self):
+        return self.fder.json_feed()
+
+
 nwsapi.add_resource(Engine, '/engine')
+nwsapi.add_resource(Articles, '/articles', '/articles/<string:aid>')
+
+nwsapi.add_resource(Health, '/health')
+nwsapi.add_resource(JSONFeed, '/feed')
 
 
 if __name__ == '__main__':
