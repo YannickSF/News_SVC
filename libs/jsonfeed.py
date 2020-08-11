@@ -13,5 +13,5 @@ class FeedCreator:
         return {"version": "https://jsonfeed.org/version/1",
                 "title": "News.YSF Feed",
                 "home_page_url": "https://news.yannicksf.com/",
-                "feed_url": "https://news.sylys.space/feed",
+                "feed_url": "https://news.yannicksf.com/feed",
                 "items": self.articles_to_items()}
